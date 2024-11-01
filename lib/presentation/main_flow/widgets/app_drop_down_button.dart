@@ -49,96 +49,87 @@ class _AppDropDownButtonState extends State<AppDropDownButton> {
             widget.title!,
           ),
         GestureDetector(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  shape: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => Dialog(
+              shape: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              // title: Text(context.locale.chooseCurrency),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 14,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.locale.chooseCurrency,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 21,
+                      ),
                     ),
-                  ),
-                  // title: Text(context.locale.chooseCurrency),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 14,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    ValueListenableBuilder(
+                        valueListenable: _currentSymbolNotifier,
+                        builder: (context, symbol, _) => Expanded(
+                              child: ListView(
+                                children: [
+                                  ...widget.symbols.map(
+                                    (e) => AppDropDownItem(
+                                      currentSymbol: symbol,
+                                      value: e,
+                                      title: e.name,
+                                      onTap: (value) {
+                                        _currentSymbolNotifier.value = value;
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          context.locale.chooseCurrency,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 21,
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text(
+                            context.locale.cansel,
+                            style: TextStyle(
+                              color: context.theme.colorScheme.primary,
+                            ),
                           ),
                         ),
                         ValueListenableBuilder(
                             valueListenable: _currentSymbolNotifier,
-                            builder: (context, symbol, _) {
-                              return Expanded(
-                                child: ListView(
-                                  children: [
-                                    ...widget.symbols.map(
-                                      (e) => AppDropDownItem(
-                                        currentSymbol: symbol,
-                                        value: e,
-                                        title: e.name,
-                                        onTap: (value) {
-                                          _currentSymbolNotifier.value = value;
-                                        },
-                                      ),
+                            builder: (context, symbol, _) => TextButton(
+                                  onPressed: () {
+                                    if (widget.isFromSymbol) {
+                                      widget.converterCubit
+                                          .selectFromSymbol(symbol);
+                                    } else {
+                                      widget.converterCubit
+                                          .selectToSymbol(symbol);
+                                    }
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    context.locale.ok,
+                                    style: TextStyle(
+                                      color: context.theme.colorScheme.primary,
                                     ),
-                                  ],
-                                ),
-                              );
-                            }),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: Text(
-                                context.locale.cansel,
-                                style: TextStyle(
-                                  color: context.theme.colorScheme.primary,
-                                ),
-                              ),
-                            ),
-                            ValueListenableBuilder(
-                                valueListenable: _currentSymbolNotifier,
-                                builder: (context, symbol, _) {
-                                  return TextButton(
-                                    onPressed: () {
-                                      if (widget.isFromSymbol) {
-                                        widget.converterCubit
-                                            .selectFromSymbol(symbol);
-                                      } else {
-                                        widget.converterCubit
-                                            .selectToSymbol(symbol);
-                                      }
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      context.locale.ok,
-                                      style: TextStyle(
-                                        color:
-                                            context.theme.colorScheme.primary,
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ],
-                        ),
+                                  ),
+                                )),
                       ],
                     ),
-                  ),
-                );
-              },
-            );
-          },
+                  ],
+                ),
+              ),
+            ),
+          ),
           child: Icon(
             Icons.arrow_drop_down_sharp,
             color: context.theme.colorScheme.primary,
