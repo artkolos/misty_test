@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:misty_test/core/extensions/locale_ext.dart';
-import 'package:misty_test/core/extensions/theme_ext.dart';
 import 'package:misty_test/domain/bloc/converter/converter_cubit.dart';
 import 'package:misty_test/injection.dart';
 import 'package:misty_test/presentation/main_flow/widgets/app_text_field.dart';
 import 'package:misty_test/presentation/main_flow/widgets/app_drop_down_button.dart';
+import 'package:misty_test/utils/extensions/locale_ext.dart';
+import 'package:misty_test/utils/extensions/theme_ext.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

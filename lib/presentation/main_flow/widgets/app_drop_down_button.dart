@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:misty_test/core/extensions/locale_ext.dart';
-import 'package:misty_test/core/extensions/theme_ext.dart';
 import 'package:misty_test/domain/bloc/converter/converter_cubit.dart';
 import 'package:misty_test/domain/models/symbol/symbol.dart';
 import 'package:misty_test/presentation/main_flow/widgets/app_drop_down_item.dart';
+import 'package:misty_test/utils/extensions/locale_ext.dart';
+import 'package:misty_test/utils/extensions/theme_ext.dart';
 
 class AppDropDownButton extends StatefulWidget {
   const AppDropDownButton({
