@@ -1,3 +1,7 @@
 # misty_test
 
-A new Flutter project.
+Get started
+
+flutter pub get
+flutter l10-n
+flutter pub run build_runner build --delete-conflicting-outputs
