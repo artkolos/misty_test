@@ -3,5 +3,5 @@
 Get started
 
 flutter pub get
-flutter l10-n
+flutter gen-l10n
 flutter pub run build_runner build --delete-conflicting-outputs
